@@ -105,19 +105,22 @@
         const scoreText = document.querySelector("#scoreText");
         const sound = document.querySelector("#pickupSound");
 
-        pickup.addEventListener("click", () => {
-          pickup.setAttribute("visible", false);
-          try {
-            sound.play(); // работает только после первого тапа
-          } catch (e) {
-            console.warn("Аудио не воспроизвелось:", e);
-          }
-          score++;
-          scoreText.setAttribute("value", "Счёт: " + score);
-          if (score >= 1) {
-            alert("Поздравляем! Вы собрали объект!");
-          }
-        });
+        pickup.addEventListener('click', () => {
+  sound.play();
+  score++;
+  scoreText.setAttribute('value', 'Счёт: ' + score);
+
+  // ПЕРЕМЕСТИТЬ объект в новое случайное место
+  const newX = (Math.random() - 0.5) * 10;
+  const newZ = -Math.random() * 10 - 2;
+  pickup.setAttribute('position', `${newX} 0.5 ${newZ}`);
+
+  if (score >= 5) {
+    alert('Вы собрали все объекты!');
+    pickup.setAttribute('visible', false); // скрываем окончательно
+  }
+});
+
       </script>
     </a-scene>
   </body>
